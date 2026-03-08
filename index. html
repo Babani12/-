@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>С 8 Марта, дорогая подруга! 💐</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Segoe UI', Arial, sans-serif;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Фон с цветами */
+        .background-flowers {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.2;
+            font-size: 40px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            align-items: center;
+            animation: rotate 60s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            width: 90%;
+            text-align: center;
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            animation: containerAppear 1s ease-out;
+        }
+
+        @keyframes containerAppear {
+            from {
+                opacity: 0;
+                transform: scale(0.8) translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        h1 {
+            color: #8B4513;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            animation: titleGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes titleGlow {
+            0%, 100% { text-shadow: 2px 2px 4px rgba(0,0,0,0.1); }
+            50% { text-shadow: 0 0 20px #ff6b6b, 2px 2px 4px rgba(0,0,0,0.1); }
+        }
+
+        .gift-wrapper {
+            position: relative;
+            margin: 30px 0;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .gift-wrapper:hover {
+            transform: scale(1.05);
+        }
+
+        .gift {
+            font-size: 150px;
+            animation: giftFloat 3s ease-in-out infinite;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.2));
+            position: relative;
+            display: inline-block;
+        }
+
+        @keyframes giftFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-15px) rotate(-5deg); }
+            75% { transform: translateY(15px) rotate(5deg); }
+        }
+
+        .gift::before {
+            content: '✨';
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            font-size: 40px;
+            animation: sparkle 1.5s ease-in-out infinite;
+            opacity: 0;
+        }
+
+        .gift::after {
+            content: '✨';
+            position: absolute;
+            bottom: -20px;
+            right: -20px;
+            font-size: 40px;
+            animation: sparkle 1.5s ease-in-out infinite 0.5s;
+            opacity: 0;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 0; transform: scale(0.5); }
+            50% { opacity: 1; transform: scale(1); }
+        }
+
+        .click-hint {
+            font-size: 1.2em;
+            color: #666;
+            margin-top: 10px;
+            animation: hintPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes hintPulse {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; transform: scale(1.05); }
+        }
+
+        .progress-container {
+            width: 100%;
+            height: 4px;
+            background: #f0f0f0;
+            border-radius: 2px;
+            margin: 20px 0;
+            overflow: hidden;
+            display: none;
+        }
+
+        .progress-bar {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, #ff6b6b, #4ecdc4);
+            transition: width 3s linear;
+            border-radius: 2px;
+        }
+
+        .bouquet {
+            margin: 30px 0;
+            display: none;
+        }
+
+        .flower-row {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 10px 0;
+        }
+
+        .flower {
+            font-size: 50px;
+            opacity: 0;
+            transform: scale(0) rotate(-180deg);
+            display: inline-block;
+            transition: all 0.5s;
+            cursor: pointer;
+        }
+
+        .flower:hover {
+            transform: scale(1.2) rotate(10deg) !important;
+            filter: drop-shadow(0 0 10px gold);
+        }
+
+        .open .flower {
+            animation: bloom 0.8s forwards;
+        }
+
+        .open .flower:nth-child(1) { animation-delay: 0.1s; }
+        .open .flower:nth-child(2) { animation-delay: 0.3s; }
+        .open .flower:nth-child(3) { animation-delay: 0.5s; }
+        .open .flower:nth-child(4) { animation-delay: 0.7s; }
+        .open .flower:nth-child(5) { animation-delay: 0.9s; }
+        .open .flower:nth-child(6) { animation-delay: 1.1s; }
+        .open .flower:nth-child(7) { animation-delay: 1.3s; }
+        .open .flower:nth-child(8) { animation-delay: 1.5s; }
+
+        @keyframes bloom {
+            0% {
+                opacity: 0;
+                transform: scale(0) rotate(-180deg) translateY(20px);
+            }
+            50% {
+                opacity: 0.8;
+                transform: scale(1.1) rotate(10deg) translateY(-5px);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) rotate(0deg) translateY(0);
+            }
+        }
+
+        .message {
+            display: none;
+            background: linear-gradient(135deg, #fff5f5, #fff0f0);
+            padding: 30px;
+            border-radius: 20px;
+            margin: 20px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border-left: 5px solid #ff6b6b;
+            animation: messageAppear 1s ease-out;
+        }
+
+        @keyframes messageAppear {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .message-text {
+            font-size: 1.3em;
+            line-height: 1.6;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .signature {
+            font-size: 1.5em;
+            color: #8B4513;
+            font-style: italic;
+            border-top: 2px dashed #ff6b6b;
+            padding-top: 20px;
+            margin-top: 20px;
+            animation: signatureGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes signatureGlow {
+            0%, 100% { text-shadow: none; }
+            50% { text-shadow: 0 0 10px #ff6b6b; }
+        }
+
+        .buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+            color: white;
+            box-shadow: 0 5px 15px rgba(255,107,107,0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255,107,107,0.6);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #4ecdc4, #45b7aa);
+            color: white;
+            box-shadow: 0 5px 15px rgba(78,205,196,0.4);
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(78,205,196,0.6);
+        }
+
+        .petal {
+            position: fixed;
+            font-size: 24px;
+            pointer-events: none;
+            z-index: 1000;
+            animation: fall linear forwards;
+            filter: drop-shadow(0 5px 5px rgba(0,0,0,0.2));
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(110vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 999;
+            animation: confettiFall linear forwards;
+        }
+
+        @keyframes confettiFall {
+            to {
+                transform: translateY(110vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .music-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: white;
+            border: none;
+            cursor: pointer;
+            font-size: 24px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 1001;
+            transition: all 0.3s;
+            animation: musicPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes musicPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .music-toggle:hover {
+            transform: scale(1.1) rotate(10deg);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            .gift {
+                font-size: 120px;
+            }
+            
+            .flower {
+                font-size: 40px;
+            }
+            
+            .message-text {
+                font-size: 1.1em;
+            }
+            
+            .buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-flowers">
+        🌸 🌺 🌹 🌷 🌼 🌻 🌸 🌺 🌹 🌷
+    </div>
+
+    <button class="music-toggle" onclick="toggleMusic()" aria-label="Включить музыку">🎵</button>
+
+    <div class="container">
+        <h1>🌸 С 8 Марта! 🌸</h1>
+        
+        <div class="gift-wrapper" onclick="openGift()" role="button" tabindex="0" 
+             onkeydown="if(event.key==='Enter'||event.key===' ') openGift()"
+             aria-label="Открыть подарок">
+            <div class="gift" id="gift">🎁</div>
+            <div class="click-hint">✨ Нажми на подарок ✨</div>
+        </div>
+
+        <div class="progress-container" id="progressContainer">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+
+        <div class="bouquet" id="bouquet">
+            <div class="flower-row">
+                <span class="flower" onclick="pickFlower(this)">🌹</span>
+                <span class="flower" onclick="pickFlower(this)">🌸</span>
+                <span class="flower" onclick="pickFlower(this)">🌷</span>
+                <span class="flower" onclick="pickFlower(this)">🌺</span>
+            </div>
+            <div class="flower-row">
+                <span class="flower" onclick="pickFlower(this)">🌼</span>
+                <span class="flower" onclick="pickFlower(this)">🌻</span>
+                <span class="flower" onclick="pickFlower(this)">🌹</span>
+                <span class="flower" onclick="pickFlower(this)">🌸</span>
+            </div>
+        </div>
+
+        <div class="message" id="message">
+            <div class="message-text">
+                <p>Дорогая подруга! 💐</p>
+                <p>С 8 Марта! Пусть этот день подарит тебе море улыбок, 
+                   тепло самых близких людей и исполнение самых заветных желаний.</p>
+                <p>Ты замечательный человек, и я бесконечно рада, 
+                   что ты есть в моей жизни. Твоя доброта, искренность 
+                   и красота делают этот мир лучше.</p>
+                <p>Желаю тебе счастья, здоровья, любви и вдохновения. 
+                   Пусть каждый день будет наполнен радостью и приятными сюрпризами!</p>
+            </div>
+            <div class="signature">
+                С любовью, <br>
+                Твоя Бабани ❤️
+            </div>
+        </div>
+
+        <div class="buttons">
+            <button class="btn btn-primary" onclick="shareWishes()">💝 Поделиться</button>
+            <button class="btn btn-secondary" onclick="createSurprise()">🎉 Ещё сюрприз</button>
+        </div>
+    </div>
+
+    <script>
+        let isOpened = false;
+        let audio = null;
+        let isMusicPlaying = false;
+
+        function openGift() {
+            if (isOpened) {
+                createMiniSurprise();
+                return;
+            }
+
+            isOpened = true;
+
+            const gift = document.getElementById('gift');
+            const bouquet = document.getElementById("bouquet");
+            const message = document.getElementById("message");
+            const progressContainer = document.getElementById("progressContainer");
+            const progressBar = document.getElementById("progressBar");
+
+            gift.style.animation = 'giftFloat 0.5s ease-in-out 3';
+            
+            progressContainer.style.display = 'block';
+            
+            setTimeout(() => {
+                progressBar.style.width = '100%';
+            }, 100);
+
+            setTimeout(() => {
+                bouquet.style.display = "block";
+                bouquet.classList.add("open");
+                
+                createPetals(50);
+                createConfetti(30);
+                
+                gift.textContent = '🎀';
+            }, 500);
+
+            setTimeout(() => {
+                message.style.display = "block";
+                progressContainer.style.display = 'none';
+                playMusic();
+            }, 3500);
+
+            saveToHistory();
+        }
+
+        function createPetals(count) {
+            const petals = ['🌸', '🌺', '🌹', '🌷', '🌼', '🌻'];
+            
+            for(let i = 0; i < count; i++) {
+                setTimeout(() => {
+                    const petal = document.createElement("div");
+                    petal.className = "petal";
+                    petal.innerHTML = petals[Math.floor(Math.random() * petals.length)];
+                    petal.style.left = Math.random() * 100 + "vw";
+                    petal.style.animationDuration = (3 + Math.random() * 4) + "s";
+                    petal.style.fontSize = (20 + Math.random() * 30) + "px";
+                    petal.style.opacity = 0.6 + Math.random() * 0.4;
+                    document.body.appendChild(petal);
+                    
+                    setTimeout(() => { petal.remove(); }, 6000);
+                }, i * 50);
+            }
+        }
+
+        function createConfetti(count) {
+            const colors = ['#ff6b6b', '#4ecdc4', '#ffe66d', '#ff8e8e', '#45b7aa'];
+            
+            for(let i = 0; i < count; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement("div");
+                    confetti.className = "confetti";
+                    confetti.style.left = Math.random() * 100 + "vw";
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.width = (5 + Math.random() * 10) + "px";
+                    confetti.style.height = (5 + Math.random() * 10) + "px";
+                    confetti.style.animationDuration = (2 + Math.random() * 3) + "s";
+                    confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+                    document.body.appendChild(confetti);
+                    
+                    setTimeout(() => { confetti.remove(); }, 4000);
+                }, i * 30);
+            }
+        }
+
+        function pickFlower(flower) {
+            flower.style.animation = 'none';
+            flower.offsetHeight;
+            flower.style.animation = 'bloom 0.5s ease-in-out';
+            
+            for(let i = 0; i < 5; i++) {
+                setTimeout(() => {
+                    const smallFlower = document.createElement("div");
+                    smallFlower.className = "petal";
+                    smallFlower.innerHTML = '✨';
+                    smallFlower.style.left = (event.clientX + (Math.random() * 50 - 25)) + 'px';
+                    smallFlower.style.top = (event.clientY + (Math.random() * 50 - 25)) + 'px';
+                    smallFlower.style.fontSize = '15px';
+                    smallFlower.style.animation = 'fall 1s linear forwards';
+                    document.body.appendChild(smallFlower);
+                    
+                    setTimeout(() => { smallFlower.remove(); }, 1000);
+                }, i * 100);
+            }
+        }
+
+        function playMusic() {
+            if (!audio) {
+                audio = new Audio();
+                audio.src = 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3';
+                audio.loop = true;
+            }
+            
+            if (!isMusicPlaying) {
+                audio.play().catch(() => {
+                    console.log('Автовоспроизведение заблокировано браузером');
+                });
+                isMusicPlaying = true;
+                document.querySelector('.music-toggle').textContent = '🔊';
+            }
+        }
+
+        function toggleMusic() {
+            if (!audio) {
+                playMusic();
+            } else if (isMusicPlaying) {
+                audio.pause();
+                isMusicPlaying = false;
+                document.querySelector('.music-toggle').textContent = '🔈';
+            } else {
+                audio.play();
+                isMusicPlaying = true;
+                document.querySelector('.music-toggle').textContent = '🔊';
+            }
+        }
+
+        function shareWishes() {
+            const text = "С 8 Марта! 💐 Пусть сбудутся все мечты!";
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Поздравление с 8 Марта',
+                    text: text,
+                }).catch(() => {
+                    alert(text);
+                });
+            } else {
+                alert(text);
+            }
+        }
+
+        function createSurprise() {
+            createConfetti(50);
+            createPetals(30);
+            
+            const surpriseMessages = [
+                "🌸 Ты прекрасна!",
+                "💝 Улыбнись!",
+                "✨ Сияй ярко!",
+                "🌺 Ты особенная!",
+                "💫 Счастлива будь!"
+            ];
+            
+            const message = surpriseMessages[Math.floor(Math.random() * surpriseMessages.length)];
+            
+            const surpriseDiv = document.createElement("div");
+            surpriseDiv.style.position = "fixed";
+            surpriseDiv.style.top = "50%";
+            surpriseDiv.style.left = "50%";
+            surpriseDiv.style.transform = "translate(-50%, -50%)";
+            surpriseDiv.style.background = "linear-gradient(135deg, #ff6b6b, #4ecdc4)";
+            surpriseDiv.style.color = "white";
+            surpriseDiv.style.padding = "20px 40px";
+            surpriseDiv.style.borderRadius = "50px";
+            surpriseDiv.style.fontSize = "24px";
+            surpriseDiv.style.fontWeight = "bold";
+            surpriseDiv.style.zIndex = "2000";
+            surpriseDiv.style.animation = "messageAppear 0.5s ease-out, fadeOut 0.5s ease-out 2s forwards";
+            surpriseDiv.textContent = message;
+            
+            document.body.appendChild(surpriseDiv);
+            
+            setTimeout(() => {
+                surpriseDiv.remove();
+            }, 2500);
+        }
+
+        function createMiniSurprise() {
+            const colors = ['#ff6b6b', '#4ecdc4', '#ffe66d'];
+            
+            for(let i = 0; i < 10; i++) {
+                const dot = document.createElement("div");
+                dot.style.position = "fixed";
+                dot.style.left = (event?.clientX || window.innerWidth/2) + (Math.random() * 100 - 50) + 'px';
+                dot.style.top = (event?.clientY || window.innerHeight/2) + (Math.random() * 100 - 50) + 'px';
+                dot.style.width = '10px';
+                dot.style.height = '10px';
+                dot.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                dot.style.borderRadius = '50%';
+                dot.style.pointerEvents = 'none';
+                dot.style.zIndex = '2000';
+                dot.style.animation = 'fall 1s linear forwards';
+                
+                document.body.appendChild(dot);
+                
+                setTimeout(() => { dot.remove(); }, 1000);
+            }
+        }
+
+        function saveToHistory() {
+            const history = JSON.parse(localStorage.getItem('giftHistory') || '[]');
+            history.push({
+                date: new Date().toISOString(),
+                type: '8march'
+            });
+            localStorage.setItem('giftHistory', JSON.stringify(history.slice(-10)));
+        }
+
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                createPetals(10);
+            }, 500);
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                createMiniSurprise();
+            }
+        });
+
+        document.addEventListener('touchstart', (e) => {
+            if (e.target.classList.contains('flower')) {
+                pickFlower(e.target);
+            }
+        });
+
+        setInterval(() => {
+            if (!isOpened) {
+                const hint = document.querySelector('.click-hint');
+                hint.style.transform = 'scale(1.1)';
+                setTimeout(() => {
+                    hint.style.transform = 'scale(1)';
+                }, 200);
+            }
+        }, 3000);
+    </script>
+</body>
+</html>
